@@ -1,0 +1,21 @@
+body {
+    background-color: gainsboro
+}
+
+img {
+    width: 12em;
+    height: 12em;
+    display: flex;
+}
+
+#drinkContainer {
+    width: 50em;
+    height: 50em;
+    background-color:honeydew;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.noDisplay {
+    opacity: 0%;
+}
