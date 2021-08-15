@@ -1,113 +1,143 @@
-// //access and display a drink
-// fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
-// .then(function(response){
-// console.log("response status", response)
-// return response.json();
-// }).then(function(json){
-// console.log("response payload:", json)
-// //do something with the json payload
-// // processJson(json)
-// console.log(json)
-// // const imageObjectURL = URL.createObjectURL(json.drinks[0].strDrinkThumb)
-//     //set this temporary url as the source for the image tag
-//     document.getElementById("image2").src = json.drinks[0].strDrinkThumb
-// })
+// // //access and display a drink
+// // fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
+// // .then(function(response){
+// // console.log("response status", response)
+// // return response.json();
+// // }).then(function(json){
+// // console.log("response payload:", json)
+// // //do something with the json payload
+// // // processJson(json)
+// // console.log(json)
+// // // const imageObjectURL = URL.createObjectURL(json.drinks[0].strDrinkThumb)
+// //     //set this temporary url as the source for the image tag
+// //     document.getElementById("image2").src = json.drinks[0].strDrinkThumb
+// // })
 
-// let drinksArray = []
-// function makeDrink(){
-let clickCount = 0  ;
-let random = null;
-let getDrinks = function(){
-    // for(let i=0; i< 6; i++){
-        fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
-            .then(function(response){
-                return response.json();
-            }).then(function(json){
-                //save the url as a variable
-                let drinkImage = json.drinks[0].strDrinkThumb
-                console.log(drinkImage)
-                // console.log(`I've made this drink ${drinkImage}`)
-                // let currentImg = document.createElement("img")
-                // currentImg.src = drinkImage
-                // //create an id for the img
-                // let imgId = "id" + i
-                // //set the img id 
-                // currentImg.setAttribute("id", imgId)
-                // //append img to body
-                processJson(json)
-            }) 
-        // }
-      
-}
 
-let processJson = function(json) {
-        let drink = json.drinks[0].strDrinkThumb
-        console.log(drink)
-        displayDrink(drink)
-//         // assignID()
-}
+// let clickCount = 0  ;
+// let random = null;
+// let updateEnd = true;
 
-// let getMoreDrinks = function(){
-//     for (let i=0; i<2; i++){
-
-//     }
+// function getRandomInt(max) {
+//     return Math.floor(Math.random() * max);
 // }
-function getRandomInt(max) {
-         return Math.floor(Math.random() * max);
-}
-//display drinks
-let displayDrink = function(drink){
-        //create img element
-        for (let i= 0; i<16; i++){
-        console.log(`Making this drink: ${drink}`)
-        let currentImg = document.createElement("img")
-        //assign current arrayOfDrinks[i] to its src
-        currentImg.src = drink
-        // //create an id for the img
-        // let imgId = "id" + i
-        // //set the img id 
-        // currentImg.setAttribute("id", imgId)
-        // //append img to body
-        let drinkDisplay = document.querySelector("#drinkContainer")
-        drinkDisplay.appendChild(currentImg)
-        
-        currentImg.addEventListener("click", function(){
-            //create and update a random number upon the first click
-            if (clickCount == 0) {
-                random = getRandomInt(16)
-                console.log(random)
-                 }
-            if (random == clickCount){
-                console.log(`they match`)
-                showRobot()
-                //need to change img here to Robot
-            }  
-            if (currentImg.className == "noDisplay") {
-                return false
-            }
-            else {currentImg.className = "noDisplay"
-            clickCount = clickCount + 1
-            console.log(clickCount)
-            return clickCount
-             }   
-            })
-         }
-         
-    } 
+// let getDrinks = function(){
+//     // for(let i=0; i< 6; i++){
+//         fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
+//             .then(function(response){
+//                 return response.json();
+//             }).then(function(json){
+//                 //save the url as a variable
+//                 let drinkImage = json.drinks[0].strDrinkThumb
+//                 console.log(drinkImage)
+//                 processJson(json)
+//             })   
+// }
 
-let showRobot = function(){
-    //fetch robot(s?)
-    //how do i connect the robot to the current image?
-        //turn a class on
-        //this means it would need to have a class
-        //which would mean I need to get the image with said class
-            //and append it to that image
-        //but right now, all the images have the same class(es): either none or noDisplay
-        //instead, I could give the current image an id (in the previous/parent function)
-        //and the id could match the random number, or be a variable outside the 
-        //then grab that img by id
-        //and append this robot to it
-}
+// let processJson = function(json) {
+//         let drink = json.drinks[0].strDrinkThumb
+//         console.log(drink)
+//         displayDrink(drink)
+// //         // assignID()
+// }
+
+// //display drinks
+// let displayDrink = function(drink){
+//         clickCount = 0 ;
+//         //create img element
+//         for (let i= 0; i<15; i++){
+//         console.log(`Making this drink: ${drink}`)
+//         let drinkDisplay = document.querySelector("#drinkContainer")
+//         let currentDiv = document.createElement("div")
+//         currentDiv.classList.add("imageContainers")
+//         drinkDisplay.appendChild(currentDiv)
+//         let currentImg = document.createElement("img")
+//         currentImg.src = drink
+//         currentDiv.appendChild(currentImg)
+        
+//         currentImg.addEventListener("click", function(){
+//             //create and update a random number upon the first click
+//             if (clickCount == 0) {
+//                 random = getRandomInt(14)
+//                 console.log(random)
+//                  }
+//             if (updateEnd == false){
+//                     clearBoard()
+//                     getDrinks()
+//                 }   
+//             if (random == clickCount){
+//                 console.log(`they match`)
+//                 ///id the current image
+//                 currentImg.setAttribute("id", "robotId")
+//                 //id the current div
+//                 currentDiv.setAttribute("id", "found")
+//                 //change img here to Robot
+//                 showRobot()
+//                 displayEndMessage()
+//                 updateEnd = false
+//                 }
+//             if (currentImg.className == "noDisplay") {
+//                 return false
+//                 }
+//             else {currentImg.className = "noDisplay"
+//             clickCount = clickCount + 1
+//             console.log(clickCount)
+//             return clickCount
+//              }   
+//             })
+//          }
+//     } 
+
+// let showRobot = function(){
+//     console.log(`showRobot() called`)
+//     //fetch robot(s?)
+//     fetch("https://robohash.org/"+ random)
+//         .then(function(response){
+//             return response.blob();
+//         }).then(function(binaryData){
+//             //make a temporary url that regerences this binary data
+//             const imageObjectURL = URL.createObjectURL(binaryData)
+//             console.log(`imageObjectURL: ${imageObjectURL}`)
+
+//             //save current image as a variable
+//             let robotImgTag = document.getElementById("robotId");
+//             //update current image's (robot id),  src to this url
+//             robotImgTag.src = imageObjectURL
+//             //set the image to display using a class
+//             robotImgTag.classList.toggle("noDisplay")
+//             robotImgTag.classList.add("robot")
+//             endMessage = document.getElementById("end") 
+
+//             let currentDiv = document.getElementById("found")
+//             currentDiv.appendChild(endMessage)
+//             return true
+//         })     
+// }
+
+// let displayEndMessage = function(){
+//     //get p element and save
+//     let endMessage = document.getElementById("end")
+//     //show end mssage using class
+//     endMessage.setAttribute("class", "display")
+// }
+
+// let clearBoard = function(){
+//     console.log(`clear board called`)
+//     //put the end message "back" so it doesn't get deleted when we clear the inner HTML of the board
+//     endMessage = document.getElementById("end")
+//     document.body.appendChild(endMessage)
+//     //and reset the message's classes, so it's not showing
+//     endMessage.classList.remove("class", "display")
+//     endMessage.classList.toggle("noDisplay")
+//     let board = document.getElementById("drinkContainer")
+//         board.innerHTML = "" 
+//         clickCount = 0 ;
+//         random = null;
+//         updateEnd = true;
+//         return true
+// }
+// getDrinks()
+//---------ABOVE THIS LINE WORKS------------------
 //onclick, 
 //if display, then switch to class no display and
 //add to click count
@@ -124,9 +154,6 @@ let showRobot = function(){
 //         console.log(drinksArray.i)
 //     }
 // }
-    
-getDrinks()
-
 
 //This creates and array of robots:
 // let arrayOfRobots = []
@@ -209,9 +236,240 @@ getDrinks()
 // createDrinkArray()
 
 
+//--------PLAY WITH ACCESSING MULTIPLE DRINKS (Again)-------
+
+// let x=0
+// //access and display a drink
+// let fetchDrink = function(){
+//     fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
+// .then(function(response){
+// console.log("response status", response)
+// return response.json();
+// }).then(function(json){
+// console.log("response payload:", json)
+// //console.log the json payload so I know it's working
+// console.log(json)
+// //save the URL in a variable
+// let drinkURL = json.drinks[0].strDrinkThumb
+// //set the image2 with this drinkURL
+// document.getElementById("image2").src = drinkURL
+// //make it available by returning it
+// return drinkURL
+// }).then(function(drinkURL){
+//     serveDrinks()
+//     //can I use recursion? How do i make it stop?
+//     // x++
+//     // if (x > 4) return
+//     // serveDrinks()
+//     // return x
+    
+    
+// })
+// }
+
+// let serveDrinks = function(){
+//     //can I access a drink in here? yes
+//     fetchDrink()
+//     console.log(`result of fetchDrink in serveDrinks: ${fetchDrink()}`)
+//     // let drinkURL = fetchDrink()
+//     // console.log(`fetchDrink assigned to variable drinkURL within serveDrinks: ${drinkURL}`)
+//     //loop
+//     // for (let i = 0; i < 1; i++){
+//     //     console.log(`In the loop`)
+//     //     //fetch a drink URL
+//     //     let drinkURL = fetchDrink();
+//     //     //assign is as the next img's source
+//     //     document.getElementById("image2").src = drinkURL;
+//     // }
+// }
 
 
+// //do I have access to drink out here?? NO
+// // console.log(`drink on the outside: ${drink}`)
 
+// ---------------------Play with BLURRING IMAGE------------------------
+
+let clickCount = 0  ;
+let random = null;
+let updateEnd = true;
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+let getDrinks = function(){
+    // for(let i=0; i< 6; i++){
+        fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
+            .then(function(response){
+                return response.json();
+            }).then(function(json){
+                //save the url as a variable
+                let drinkImage = json.drinks[0].strDrinkThumb
+                console.log(drinkImage)
+                processJson(json)
+            })   
+}
+
+let processJson = function(json) {
+        let drink = json.drinks[0].strDrinkThumb
+        console.log(drink)
+        displayDrink(drink)
+//         // assignID()
+}
+
+//display drinks
+let displayDrink = function(drink){
+        clickCount = 0 ;
+        //create img element
+        for (let i= 0; i<12; i++){
+        console.log(`Making this drink: ${drink}`)
+        let drinkDisplay = document.querySelector("#drinkContainer")
+        let currentDiv = document.createElement("div")
+        currentDiv.classList.add("imageContainers")
+        drinkDisplay.appendChild(currentDiv)
+        let currentImg = document.createElement("img")
+        currentImg.src = drink
+        currentImg.className = "drinkImg"
+        currentDiv.appendChild(currentImg)
+        clickToRemove(currentImg, currentDiv)
+        clickToDoMore(currentImg, currentDiv)
+         }
+    }
+let clickToDoMore = function(currentImg, currentDiv){
+    currentImg.addEventListener("click", function(){
+        console.log(`I can do two click events at once`)
+        //get all images
+        let allImg = document.querySelectorAll(".drinkImg")
+        console.log(`all img: ${allImg}`)
+        //for each image
+        for (let i = 0; i< allImg.length; i++){
+            if (clickCount == 1) {
+                allImg[i].style.filter = "blur(0.3px)"
+                
+            }
+            if (clickCount == 2) {
+                allImg[i].style.filter = "blur(0.6px)"
+                
+            }
+            if (clickCount == 3) {
+                allImg[i].style.filter = "blur(1px)"
+                
+            }
+            if (clickCount == 4) {
+                allImg[i].style.filter = "blur(1.3px)"
+            }
+            if (clickCount == 5) {
+                allImg[i].style.filter = "blur(1.6px)"
+            }
+            if (clickCount == 6) {
+                allImg[i].style.filter = "blur(2px)"
+            }
+            if (clickCount == 7) {
+                allImg[i].style.filter = "blur(2.3px)"
+            }
+            if (clickCount == 8) {
+                allImg[i].style.filter = "blur(2.6px)"
+            }
+            if (clickCount == 9) {
+                allImg[i].style.filter = "blur(3px)"
+            }
+            if (clickCount == 10) {
+                allImg[i].style.filter = "blur(3.3px)"
+            }
+            if (clickCount == 11) {
+                allImg[i].style.filter = "blur(3.6px)"
+            }
+        }
+        
+       
+        
+
+        //change style using JS
+        //change it incrementally with each click
+        //if clicks === something, then style changes to blurrier
+        
+    })
+}
+let clickToRemove = function(currentImg, currentDiv){
+currentImg.addEventListener("click", function(){
+            //create and update a random number upon the first click
+            if (clickCount == 0) {
+                random = getRandomInt(11)
+                console.log(random)
+                 }
+            if (updateEnd == false){
+                    clearBoard()
+                    getDrinks()
+                }   
+            if (random == clickCount){
+                console.log(`they match`)
+                ///id the current image
+                currentImg.setAttribute("id", "robotId")
+                document.getElementById("robotId").style.filter = "blur(0px)"
+                //id the current div
+                currentDiv.setAttribute("id", "found")
+                //change img here to Robot
+                showRobot()
+                displayEndMessage()
+                updateEnd = false
+                }
+            if (currentImg.className == "noDisplay") {
+                return false
+                }
+            else {currentImg.className = "noDisplay"
+            clickCount = clickCount + 1
+            console.log(clickCount)
+            return clickCount
+             }   
+            })
+    }
+let showRobot = function(){
+    console.log(`showRobot() called`)
+    //fetch robot(s?)
+    fetch("https://robohash.org/"+ random)
+        .then(function(response){
+            return response.blob();
+        }).then(function(binaryData){
+            //make a temporary url that regerences this binary data
+            const imageObjectURL = URL.createObjectURL(binaryData)
+            console.log(`imageObjectURL: ${imageObjectURL}`)
+
+            //save current image as a variable
+            let robotImgTag = document.getElementById("robotId");
+            //update current image's (robot id),  src to this url
+            robotImgTag.src = imageObjectURL
+            //set the image to display using a class
+            robotImgTag.classList.toggle("noDisplay")
+            endMessage = document.getElementById("end") 
+
+            let currentDiv = document.getElementById("found")
+            currentDiv.appendChild(endMessage)
+            return true
+        })     
+}
+
+let displayEndMessage = function(){
+    //get p element and save
+    let endMessage = document.getElementById("end")
+    //show end mssage using class
+    endMessage.setAttribute("class", "display")
+}
+
+let clearBoard = function(){
+    console.log(`clear board called`)
+    //put the end message "back" so it doesn't get deleted when we clear the inner HTML of the board
+    endMessage = document.getElementById("end")
+    document.body.appendChild(endMessage)
+    //and reset the message's classes, so it's not showing
+    endMessage.classList.remove("class", "display")
+    endMessage.classList.toggle("noDisplay")
+    let board = document.getElementById("drinkContainer")
+        board.innerHTML = "" 
+        clickCount = 0 ;
+        random = null;
+        updateEnd = true;
+        return true
+}
+getDrinks()
 
 
 

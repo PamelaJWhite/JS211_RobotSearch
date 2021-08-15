@@ -3,19 +3,60 @@ body {
 }
 
 img {
-    width: 12em;
-    height: 12em;
+    width: 8em;
+    height: 8em;
     display: flex;
+    border-radius: 50px;
 }
 
 #drinkContainer {
     width: 50em;
-    height: 50em;
-    background-color:honeydew;
+    height: 30em;
+    /* background-color:honeydew; */
     display: flex;
     flex-wrap: wrap;
 }
 
+.imageContainers {
+    border: 1px solid purple;
+    width: 10em;
+    height: 10em;
+    display: flex;
+    justify-content:center;
+    align-items:flex-start;
+    flex-wrap: wrap;
+    margin-top: 0px;
+}
+
 .noDisplay {
     opacity: 0%;
+
+}
+
+.display {
+    opacity: 100%;
+
+}
+
+#robotId {
+    /* background-color: magenta; */
+    height: 6 em;
+    width: 6 em;
+    align-items: flex-start;
+    filter: blur(0px);
+}
+
+#end {
+    font-size: 17px;
+    text-align:center;
+    margin-top: 0;
+
+}
+
+#image2 {
+    border: 1px solid plum;
+}
+
+.blur {
+    filter: blur(20px)
 }
