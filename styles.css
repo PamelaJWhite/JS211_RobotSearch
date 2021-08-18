@@ -1,6 +1,33 @@
 body {
-    background-color: gainsboro
+    background-color: #5e6e7d;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    font-family: 'Chakra Petch', sans-serif;
+
 }
+
+h1 {
+    /* border: 1px solid red; */
+    text-shadow: 1px 1px #6DD400;
+    font-size: 45px;
+    margin-bottom: 5px;
+}
+h2 {
+    /* border: 1px solid green; */
+    text-shadow: 1px 1px #6DD400;
+    font-size: 30px;
+    text-decoration: ;
+    margin-top: 0px;
+}
+#drinkContainer {
+    width: 49em;
+    height: 30em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 
 img {
     width: 8em;
@@ -9,16 +36,9 @@ img {
     border-radius: 50px;
 }
 
-#drinkContainer {
-    width: 50em;
-    height: 30em;
-    /* background-color:honeydew; */
-    display: flex;
-    flex-wrap: wrap;
-}
 
 .imageContainers {
-    border: 1px solid purple;
+    /* border: 1px solid purple; */
     width: 10em;
     height: 10em;
     display: flex;
@@ -26,6 +46,11 @@ img {
     align-items:flex-start;
     flex-wrap: wrap;
     margin-top: 0px;
+    transform: transform .2s;
+    
+}
+.imageContainers:hover {
+    transform: scale(1.2);
 }
 
 .noDisplay {
