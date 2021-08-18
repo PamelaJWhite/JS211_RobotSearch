@@ -495,8 +495,8 @@ let clickToBlur = function(currentDiv){
 //         //change it incrementally with each click
 //         //if clicks === something, then style changes to blurrier
         
-//     })
-// }
+    })
+}
 
 
 
