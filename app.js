@@ -293,10 +293,11 @@ let clickCount = 0  ;
 let random = null;
 let updateEnd = true;
 let drinkTray = [];
-
+//this needs to have a min of 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
+
 let getDrinks = function(){
     for(let i=0; i< 12; i++){
     
@@ -307,19 +308,34 @@ let getDrinks = function(){
                 //save the url as a variable
                 let drinkImage = json.drinks[0].strDrinkThumb
                 console.log(drinkImage)
+                console.log(`1. click count before displayOneDrink: ${clickCount}`)
                 displayOneDrink(drinkImage)
+                
+                // if (random == clickCount){
+                //     //set the ids of this div and img so they can be manipulated later; it's really more like preparing the robot's home
+                //     prepareRobot(currentDiv, currentImg)
+                //     //change img to Robot
+                //     showRobot(currentDiv, currentImg)
+                //     displayEndMessage()
+                //     updateEnd = false
+                //     }
                 // drinkTray.push(drinkImage)
                 // console.log(`array of drinks:  ${drinkTray.length}`)
                 // if (drinkTray.length == 12){
                 //     console.log(`drnk tray is full`)
-                //     displayDrink()
+                //     displayDrink()s
                 // }
-                
+            
             })
+        //.then(function(){
+        // console.log(`last then `)
+        //     })
     }           
 }
 
 let displayOneDrink = function(drinkImage) {
+    console.log(`2. click count in displayOneDrink: ${clickCount}`)
+    //get the original div
     let drinkDisplay = document.querySelector("#drinkContainer");
     //create a div for the current drink image
     let currentDiv = document.createElement("div")
@@ -335,98 +351,102 @@ let displayOneDrink = function(drinkImage) {
     currentImg.className = "drinkImg"
     //attach the image to the recently created div
     currentDiv.appendChild(currentImg)
+
     currentDiv.addEventListener("click", function(){
-        currentImg.className = "noDisplay"
-        clickToRemove(currentImg,)
+        console.log(`3 click count inside event listener: ${clickCount}`)
+        //clickToRemove removes current image, 
+        // clickToRemove(currentImg, currentDiv)
+        // moveOn(currentImg, currentDiv)
+        clickToBlur(currentImg)
     })
-//   
-//   clickToDoMore()
 }
 
-//this is just extra code, likely delete. it was this way from previous project from demonstration
-// let processJson = function(json) {
-//         let drink = json.drinks[0].strDrinkThumb
-//         console.log(drink)
-//         displayDrink(drink)
-// //         // assignID()
-// display drinks using array
 
-let displayDrink = function(){
-        console.log(` access drinkTray in displayDrink: ${drinkTray.length}`)
-        console.log(`the first element of drinkTray array: ${drinkTray[0]}`)
-        clickCount = 0 ;
-        //grab the original div, id drinkContainter
-       
-        console.log(`what does the original drink container div look like? ${drinkDisplay}`)
-       
-        //need to loop over the drink array and display each 
-        for (i=0; i< drinkTray.length; i++){
-        
-          
-            
+//this function is a bit like frankenstein - it's all pieced together and definitely not just removing images
+let clickToRemove = function(currentImg, currentDiv){
+    console.log("i've been clicked and clickToRemove")
+    console.log(`clickCount inside clicktoRemove: ${clickCount}`)
+    // let currentDiv = document.querySelector(".imageContainers") 
+            //create and update a random number upon the first click
+            if (clickCount == 1) {
+                random = getRandomInt(12)
+                console.log(`Random number created: ${random}`)
+                 }
+            //when you make the randomly assigned number of clicks... 
+            // if (random == clickCount){
+            //     //set the ids of this div and img so they can be manipulated later; it's really more like preparing the robot's home
+            //     //RIGHT HERE! It's taking EACH current div and current img and trying to apply prepare robot >:/
+            //     //?? Should I put this func, remove item, in an if statement??
+            //     prepareRobot(currentDiv, currentImg)
+            //     //change img to Robot
+            //     showRobot(currentDiv, currentImg)
+            //     displayEndMessage()
+            //     updateEnd = false
+            //     }
+            //if you click on an empty space, nothing happens
+            if (currentDiv.className == "noDisplay") {
+                return false
+                }
+            if (updateEnd == false){
+                    clearBoard()
+                    getDrinks()
+                } 
+            else {currentImg.className = "noDisplay"
+            clickCount = clickCount + 1
+            console.log(clickCount)
+            return clickCount
+             }   
+    }
+let moveOn = function(currentDiv, currentImg) {
+    if (random == clickCount){
+        console.log(`random click count reached`)
+        //set the ids of this div and img so they can be manipulated later; it's really more like preparing the robot's home
+        //RIGHT HERE! It's taking EACH current div and current img and trying to apply prepare robot >:/
+        //?? Should I put this func, remove item, in an if statement??
+        prepareRobot(currentDiv, currentImg)
+        //change img to Robot
+        showRobot(currentDiv, currentImg)
+        displayEndMessage()
+        updateEnd = false
         }
-        //do these need to go here? or in the previous func?? i think here bc they need those variables
-        clickToRemove()
-        clickToDoMore()
-    }
-     
-//display drinks
-// let displayDrink = function(drink){
-//         clickCount = 0 ;
-//         //create img element
-//         for (let i= 0; i<12; i++){
-//         console.log(`Making this drink: ${drink}`)
-//         let drinkDisplay = document.querySelector("#drinkContainer")
-//         let currentDiv = document.createElement("div")
-//         currentDiv.classList.add("imageContainers")
-//         drinkDisplay.appendChild(currentDiv)
-//         let currentImg = document.createElement("img")
-//         currentImg.src = drink
-//         currentImg.className = "drinkImg"
-//         currentDiv.appendChild(currentImg)
-//         clickToRemove(currentImg, currentDiv)
-//         clickToDoMore(currentImg, currentDiv)
-//          }
-//     }
-let clickToRemove = function( currentDiv){
-    let imgContainerDivs = document.querySelector(".imageContainers")
-    // let imgContainerDivs = document.querySelector("h1")
-    imgContainerDivs.addEventListener("click", function(){
-        console.log("i've been clicked")
-    //         //create and update a random number upon the first click
-    //         if (clickCount == 0) {
-    //             random = getRandomInt(11)
-    //             console.log(random)
-    //              }
-    //         if (updateEnd == false){
-    //                 clearBoard()
-    //                 getDrinks()
-    //             }   
-    //         if (random == clickCount){
-    //             console.log(`they match`)
-    //             ///id the current image
-    //             imgContainerDivs.setAttribute("id", "robotId")
-    //             document.getElementById("robotId").style.filter = "blur(0px)"
-    //             //id the current div
-    //             currentDiv.setAttribute("id", "found")
-    //             //change img here to Robot
-    //             showRobot()
-    //             displayEndMessage()
-    //             updateEnd = false
-    //             }
-    //         if (imgContainerDivs.className == "noDisplay") {
-    //             return false
-    //             }
-    //         else {imgContainerDivs.className = "noDisplay"
-    //         clickCount = clickCount + 1
-    //         console.log(clickCount)
-    //         return clickCount
-    //          }   
-            })
-    }
-let clickToDoMore = function(){
-    let imgContainerDivs = document.querySelectorAll(".imgageContainers")
-    imgContainerDivs.addEventListener("click", function(){
+}
+let prepareRobot = function(currentDiv, currentImg) {
+    console.log(`they match`)
+                ///set the current image id to robotId so that ---
+                currentImg.setAttribute("id", "robotId")
+                //set the current div id to found so that ---
+                currentDiv.setAttribute("id", "found")
+                //style the current image, which now ha robotId, with a blur of zero, so the other images will blur but this one won't
+                document.getElementById("robotId").style.filter = "blur(0px)"
+}
+
+let showRobot = function(){
+    console.log(`showRobot() called`)
+    //fetch robot(s?)
+    fetch("https://robohash.org/"+ random)
+        .then(function(response){
+            return response.blob();
+        }).then(function(binaryData){
+            //make a temporary url that references this binary data
+            const imageObjectURL = URL.createObjectURL(binaryData)
+            console.log(`imageObjectURL: ${imageObjectURL}`)
+
+            //save current image as a variable
+            let robotImgTag = document.getElementById("robotId");
+            //update current image's (robot id),  src to this url
+            robotImgTag.src = imageObjectURL
+            //set the image to display using a class
+            currentImg.classList.toggle("noDisplay")
+            endMessage = document.getElementById("end") 
+
+            // let currentDiv = document.getElementById("found")
+            currentDiv.appendChild(endMessage)
+            return true
+        })     
+}
+let clickToBlur = function(currentDiv){
+    // let currentDiv = document.querySelectorAll(".imgageContainers")
+    currentDiv.addEventListener("click", function(){
         console.log(`I can do two click events at once`)
         //get all images
         let allImg = document.querySelectorAll(".drinkImg")
@@ -435,15 +455,12 @@ let clickToDoMore = function(){
         for (let i = 0; i< allImg.length; i++){
             if (clickCount == 1) {
                 allImg[i].style.filter = "blur(0.3px)"
-                
             }
             if (clickCount == 2) {
-                allImg[i].style.filter = "blur(0.6px)"
-                
+                allImg[i].style.filter = "blur(0.6px)" 
             }
             if (clickCount == 3) {
                 allImg[i].style.filter = "blur(1px)"
-                
             }
             if (clickCount == 4) {
                 allImg[i].style.filter = "blur(1.3px)"
@@ -474,37 +491,14 @@ let clickToDoMore = function(){
        
         
 
-        //change style using JS
-        //change it incrementally with each click
-        //if clicks === something, then style changes to blurrier
+//         //change style using JS
+//         //change it incrementally with each click
+//         //if clicks === something, then style changes to blurrier
         
-    })
-}
+//     })
+// }
 
-let showRobot = function(){
-    console.log(`showRobot() called`)
-    //fetch robot(s?)
-    fetch("https://robohash.org/"+ random)
-        .then(function(response){
-            return response.blob();
-        }).then(function(binaryData){
-            //make a temporary url that regerences this binary data
-            const imageObjectURL = URL.createObjectURL(binaryData)
-            console.log(`imageObjectURL: ${imageObjectURL}`)
 
-            //save current image as a variable
-            let robotImgTag = document.getElementById("robotId");
-            //update current image's (robot id),  src to this url
-            robotImgTag.src = imageObjectURL
-            //set the image to display using a class
-            robotImgTag.classList.toggle("noDisplay")
-            endMessage = document.getElementById("end") 
-
-            let currentDiv = document.getElementById("found")
-            currentDiv.appendChild(endMessage)
-            return true
-        })     
-}
 
 let displayEndMessage = function(){
     //get p element and save
@@ -530,6 +524,53 @@ let clearBoard = function(){
 }
 getDrinks()
 
+//this is just extra code, likely delete. it was this way from previous project from demonstration
+// let processJson = function(json) {
+//         let drink = json.drinks[0].strDrinkThumb
+//         console.log(drink)
+//         displayDrink(drink)
+// //         // assignID()
+// display drinks using array
+
+//old display drink with extra loop, waiting for array to be filled
+// let displayDrink = function(){
+//         console.log(` access drinkTray in displayDrink: ${drinkTray.length}`)
+//         console.log(`the first element of drinkTray array: ${drinkTray[0]}`)
+//         clickCount = 0 ;
+//         //grab the original div, id drinkContainter
+       
+//         console.log(`what does the original drink container div look like? ${drinkDisplay}`)
+       
+//         //need to loop over the drink array and display each 
+//         for (i=0; i< drinkTray.length; i++){
+        
+          
+            
+//         }
+//         //do these need to go here? or in the previous func?? i think here bc they need those variables
+
+//         clickToRemove()
+//         clickToDoMore()
+//     }
+     
+//display drinks
+// let displayDrink = function(drink){
+//         clickCount = 0 ;
+//         //create img element
+//         for (let i= 0; i<12; i++){
+//         console.log(`Making this drink: ${drink}`)
+//         let drinkDisplay = document.querySelector("#drinkContainer")
+//         let currentDiv = document.createElement("div")
+//         currentDiv.classList.add("imageContainers")
+//         drinkDisplay.appendChild(currentDiv)
+//         let currentImg = document.createElement("img")
+//         currentImg.src = drink
+//         currentImg.className = "drinkImg"
+//         currentDiv.appendChild(currentImg)
+//         clickToRemove(currentImg, currentDiv)
+//         clickToDoMore(currentImg, currentDiv)
+//          }
+//     }
 
 
 
