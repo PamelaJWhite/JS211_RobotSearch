@@ -287,17 +287,19 @@
 // //do I have access to drink out here?? NO
 // // console.log(`drink on the outside: ${drink}`)
 
-// ---------------------Play with BLURRING IMAGE------------------------
+// ---------------------Play with BLURRING IMAGE/ CREATING VARIED DRINKS------------------------
 
 let clickCount = 0  ;
 let random = null;
 let updateEnd = true;
+let drinkTray = [];
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 let getDrinks = function(){
-    // for(let i=0; i< 6; i++){
+    for(let i=0; i< 12; i++){
+    
         fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php")
             .then(function(response){
                 return response.json();
@@ -305,37 +307,126 @@ let getDrinks = function(){
                 //save the url as a variable
                 let drinkImage = json.drinks[0].strDrinkThumb
                 console.log(drinkImage)
-                processJson(json)
-            })   
+                displayOneDrink(drinkImage)
+                // drinkTray.push(drinkImage)
+                // console.log(`array of drinks:  ${drinkTray.length}`)
+                // if (drinkTray.length == 12){
+                //     console.log(`drnk tray is full`)
+                //     displayDrink()
+                // }
+                
+            })
+    }           
 }
 
-let processJson = function(json) {
-        let drink = json.drinks[0].strDrinkThumb
-        console.log(drink)
-        displayDrink(drink)
-//         // assignID()
+let displayOneDrink = function(drinkImage) {
+    let drinkDisplay = document.querySelector("#drinkContainer");
+    //create a div for the current drink image
+    let currentDiv = document.createElement("div")
+    //add this class name to that div
+    currentDiv.classList.add("imageContainers")
+    //attach the currentDiv (div that will hold one drink image) to drinkDisplay (the original div that will hold all the divs with drinks)
+    drinkDisplay.appendChild(currentDiv)
+    //create an image tag
+    let currentImg = document.createElement("img")
+    //assign the current URL element of the drinkTray array to the img we just created
+    currentImg.src = drinkImage
+    //assign the className drinkImg to that img
+    currentImg.className = "drinkImg"
+    //attach the image to the recently created div
+    currentDiv.appendChild(currentImg)
+    currentDiv.addEventListener("click", function(){
+        currentImg.className = "noDisplay"
+        clickToRemove(currentImg,)
+    })
+//   
+//   clickToDoMore()
 }
 
-//display drinks
-let displayDrink = function(drink){
+//this is just extra code, likely delete. it was this way from previous project from demonstration
+// let processJson = function(json) {
+//         let drink = json.drinks[0].strDrinkThumb
+//         console.log(drink)
+//         displayDrink(drink)
+// //         // assignID()
+// display drinks using array
+
+let displayDrink = function(){
+        console.log(` access drinkTray in displayDrink: ${drinkTray.length}`)
+        console.log(`the first element of drinkTray array: ${drinkTray[0]}`)
         clickCount = 0 ;
-        //create img element
-        for (let i= 0; i<12; i++){
-        console.log(`Making this drink: ${drink}`)
-        let drinkDisplay = document.querySelector("#drinkContainer")
-        let currentDiv = document.createElement("div")
-        currentDiv.classList.add("imageContainers")
-        drinkDisplay.appendChild(currentDiv)
-        let currentImg = document.createElement("img")
-        currentImg.src = drink
-        currentImg.className = "drinkImg"
-        currentDiv.appendChild(currentImg)
-        clickToRemove(currentImg, currentDiv)
-        clickToDoMore(currentImg, currentDiv)
-         }
+        //grab the original div, id drinkContainter
+       
+        console.log(`what does the original drink container div look like? ${drinkDisplay}`)
+       
+        //need to loop over the drink array and display each 
+        for (i=0; i< drinkTray.length; i++){
+        
+          
+            
+        }
+        //do these need to go here? or in the previous func?? i think here bc they need those variables
+        clickToRemove()
+        clickToDoMore()
     }
-let clickToDoMore = function(currentImg, currentDiv){
-    currentImg.addEventListener("click", function(){
+     
+//display drinks
+// let displayDrink = function(drink){
+//         clickCount = 0 ;
+//         //create img element
+//         for (let i= 0; i<12; i++){
+//         console.log(`Making this drink: ${drink}`)
+//         let drinkDisplay = document.querySelector("#drinkContainer")
+//         let currentDiv = document.createElement("div")
+//         currentDiv.classList.add("imageContainers")
+//         drinkDisplay.appendChild(currentDiv)
+//         let currentImg = document.createElement("img")
+//         currentImg.src = drink
+//         currentImg.className = "drinkImg"
+//         currentDiv.appendChild(currentImg)
+//         clickToRemove(currentImg, currentDiv)
+//         clickToDoMore(currentImg, currentDiv)
+//          }
+//     }
+let clickToRemove = function( currentDiv){
+    let imgContainerDivs = document.querySelector(".imageContainers")
+    // let imgContainerDivs = document.querySelector("h1")
+    imgContainerDivs.addEventListener("click", function(){
+        console.log("i've been clicked")
+    //         //create and update a random number upon the first click
+    //         if (clickCount == 0) {
+    //             random = getRandomInt(11)
+    //             console.log(random)
+    //              }
+    //         if (updateEnd == false){
+    //                 clearBoard()
+    //                 getDrinks()
+    //             }   
+    //         if (random == clickCount){
+    //             console.log(`they match`)
+    //             ///id the current image
+    //             imgContainerDivs.setAttribute("id", "robotId")
+    //             document.getElementById("robotId").style.filter = "blur(0px)"
+    //             //id the current div
+    //             currentDiv.setAttribute("id", "found")
+    //             //change img here to Robot
+    //             showRobot()
+    //             displayEndMessage()
+    //             updateEnd = false
+    //             }
+    //         if (imgContainerDivs.className == "noDisplay") {
+    //             return false
+    //             }
+    //         else {imgContainerDivs.className = "noDisplay"
+    //         clickCount = clickCount + 1
+    //         console.log(clickCount)
+    //         return clickCount
+    //          }   
+            })
+    }
+let clickToDoMore = function(){
+    let imgContainerDivs = document.querySelectorAll(".imgageContainers")
+    imgContainerDivs.addEventListener("click", function(){
         console.log(`I can do two click events at once`)
         //get all images
         let allImg = document.querySelectorAll(".drinkImg")
@@ -389,39 +480,7 @@ let clickToDoMore = function(currentImg, currentDiv){
         
     })
 }
-let clickToRemove = function(currentImg, currentDiv){
-currentImg.addEventListener("click", function(){
-            //create and update a random number upon the first click
-            if (clickCount == 0) {
-                random = getRandomInt(11)
-                console.log(random)
-                 }
-            if (updateEnd == false){
-                    clearBoard()
-                    getDrinks()
-                }   
-            if (random == clickCount){
-                console.log(`they match`)
-                ///id the current image
-                currentImg.setAttribute("id", "robotId")
-                document.getElementById("robotId").style.filter = "blur(0px)"
-                //id the current div
-                currentDiv.setAttribute("id", "found")
-                //change img here to Robot
-                showRobot()
-                displayEndMessage()
-                updateEnd = false
-                }
-            if (currentImg.className == "noDisplay") {
-                return false
-                }
-            else {currentImg.className = "noDisplay"
-            clickCount = clickCount + 1
-            console.log(clickCount)
-            return clickCount
-             }   
-            })
-    }
+
 let showRobot = function(){
     console.log(`showRobot() called`)
     //fetch robot(s?)
