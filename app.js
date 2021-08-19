@@ -310,23 +310,16 @@ let getDrinks = function(){
                 console.log(drinkImage)
                 console.log(`1. click count before displayOneDrink: ${clickCount}`)
                 displayOneDrink(drinkImage)
+                // searchForRobot
                 
-                // if (random == clickCount){
-                //     //set the ids of this div and img so they can be manipulated later; it's really more like preparing the robot's home
-                //     prepareRobot(currentDiv, currentImg)
-                //     //change img to Robot
-                //     showRobot(currentDiv, currentImg)
-                //     displayEndMessage()
-                //     updateEnd = false
-                //     }
                 // drinkTray.push(drinkImage)
                 // console.log(`array of drinks:  ${drinkTray.length}`)
                 // if (drinkTray.length == 12){
                 //     console.log(`drnk tray is full`)
-                //     displayDrink()s
-                // }
             
+                // }
             })
+            
         //.then(function(){
         // console.log(`last then `)
         //     })
@@ -355,8 +348,8 @@ let displayOneDrink = function(drinkImage) {
     currentDiv.addEventListener("click", function(){
         console.log(`3 click count inside event listener: ${clickCount}`)
         //clickToRemove removes current image, 
-        // clickToRemove(currentImg, currentDiv)
-        // moveOn(currentImg, currentDiv)
+        clickToRemove(currentImg, currentDiv)
+        moveOn(currentImg, currentDiv)
         clickToBlur(currentImg)
     })
 }
@@ -373,21 +366,20 @@ let clickToRemove = function(currentImg, currentDiv){
                 console.log(`Random number created: ${random}`)
                  }
             //when you make the randomly assigned number of clicks... 
-            // if (random == clickCount){
-            //     //set the ids of this div and img so they can be manipulated later; it's really more like preparing the robot's home
-            //     //RIGHT HERE! It's taking EACH current div and current img and trying to apply prepare robot >:/
-            //     //?? Should I put this func, remove item, in an if statement??
-            //     prepareRobot(currentDiv, currentImg)
-            //     //change img to Robot
-            //     showRobot(currentDiv, currentImg)
-            //     displayEndMessage()
-            //     updateEnd = false
-            //     }
+            if (random == clickCount){
+               
+                // prepareRobot(currentDiv, currentImg)
+                //change img to Robot
+                showRobot()
+                // displayEndMessage()
+                // updateEnd = false
+                }
             //if you click on an empty space, nothing happens
             if (currentDiv.className == "noDisplay") {
                 return false
                 }
             if (updateEnd == false){
+                    document.getElementById("end").style.opacity = "0%"
                     clearBoard()
                     getDrinks()
                 } 
@@ -405,12 +397,12 @@ let moveOn = function(currentDiv, currentImg) {
         //?? Should I put this func, remove item, in an if statement??
         prepareRobot(currentDiv, currentImg)
         //change img to Robot
-        showRobot(currentDiv, currentImg)
-        displayEndMessage()
-        updateEnd = false
+        // showRobot(currentDiv, currentImg)//I moved this to a new then
+        // displayEndMessage()
+        // updateEnd = false
         }
 }
-let prepareRobot = function(currentDiv, currentImg) {
+let prepareRobot = function(currentImg, currentDiv) {
     console.log(`they match`)
                 ///set the current image id to robotId so that ---
                 currentImg.setAttribute("id", "robotId")
@@ -420,9 +412,9 @@ let prepareRobot = function(currentDiv, currentImg) {
                 document.getElementById("robotId").style.filter = "blur(0px)"
 }
 
-let showRobot = function(){
+let showRobot = function(currentImg){
     console.log(`showRobot() called`)
-    //fetch robot(s?)
+    //fetch robot
     fetch("https://robohash.org/"+ random)
         .then(function(response){
             return response.blob();
@@ -433,21 +425,40 @@ let showRobot = function(){
 
             //save current image as a variable
             let robotImgTag = document.getElementById("robotId");
+            console.log(`Is this robotImgTag null? ${robotImgTag}`)
             //update current image's (robot id),  src to this url
             robotImgTag.src = imageObjectURL
-            //set the image to display using a class
-            currentImg.classList.toggle("noDisplay")
+            //using id, set the image style to 100% opacity to show
+            robotImgTag.style.opacity = "100%"
+            
+            //
             endMessage = document.getElementById("end") 
-
-            // let currentDiv = document.getElementById("found")
+            let currentDiv = document.getElementById("found")
             currentDiv.appendChild(endMessage)
+            endMessage.style.opacity = "100%"
+            updateEnd = false
+            // updateEnd = true
+            console.log(updateEnd)
             return true
         })     
 }
+// let searchForRobot = function() {
+//     if (document.getElementById("robotId") == true){
+//     showRobot()
+//     console.log(`robotId found`)
+//     return false
+// }
+// else {
+//     console.log(`searching`)
+//     searchForRobot()
+// }
+// }
+
+
 let clickToBlur = function(currentDiv){
     // let currentDiv = document.querySelectorAll(".imgageContainers")
-    currentDiv.addEventListener("click", function(){
-        console.log(`I can do two click events at once`)
+    // currentDiv.addEventListener("click", function(){
+        console.log(`click to blur called`)
         //get all images
         let allImg = document.querySelectorAll(".drinkImg")
         console.log(`all img: ${allImg}`)
@@ -495,7 +506,7 @@ let clickToBlur = function(currentDiv){
 //         //change it incrementally with each click
 //         //if clicks === something, then style changes to blurrier
         
-    })
+    // })
 }
 
 
