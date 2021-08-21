@@ -29,14 +29,12 @@ h2 {
     
 }
 
-
 img {
     width: 8em;
     height: 8em;
     display: flex;
     border-radius: 50px;
 }
-
 
 .imageContainers {
     /* border: 1px solid purple; */
@@ -46,7 +44,7 @@ img {
     justify-content:center;
     align-items:flex-start;
     flex-wrap: wrap;
-    margin-top: 0px;
+    margin-top: 10px;
     transform: transform .2s;
     
 }
@@ -56,16 +54,13 @@ img {
 
 .noDisplay {
     opacity: 0%;
-
 }
 
 .display {
     opacity: 100%;
-
 }
 
 #robotId {
-    /* background-color: magenta; */
     height: 6 em;
     width: 6 em;
     align-items: flex-start;
@@ -76,6 +71,7 @@ img {
     font-size: 15px;
     text-align:center;
     margin-top: 0;
+    opacity: 0%;
 
 }
 
