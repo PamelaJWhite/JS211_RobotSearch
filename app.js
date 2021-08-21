@@ -98,41 +98,41 @@ let clickToBlur = function(currentDiv){
     let allImg = document.querySelectorAll(".drinkImg")
     //for each image
     for (let i = 0; i< allImg.length; i++){
-        let blur = clickCount*0.3
-            //     if (clickCount == 1) {
-            //         allImg[i].style.filter = "blur(0.3px)"
-            //     }
-            //     if (clickCount == 2) {
-            //         allImg[i].style.filter = "blur(0.6px)" 
-            //     }
-            //     if (clickCount == 3) {
-            //         allImg[i].style.filter = "blur(1px)"
-            //     }
-            //     if (clickCount == 4) {
-            //         allImg[i].style.filter = "blur(1.3px)"
-            //     }
-            //     if (clickCount == 5) {
-            //         allImg[i].style.filter = "blur(1.6px)"
-            //     }
-            //     if (clickCount == 6) {
-            //         allImg[i].style.filter = "blur(2px)"
-            //     }
-            //     if (clickCount == 7) {
-            //         allImg[i].style.filter = "blur(2.3px)"
-            //     }
-            //     if (clickCount == 8) {
-            //         allImg[i].style.filter = "blur(2.6px)"
-            //     }
-            //     if (clickCount == 9) {
-            //         allImg[i].style.filter = "blur(3px)"
-            //     }
-            //     if (clickCount == 10) {
-            //         allImg[i].style.filter = "blur(3.3px)"
-            //     }
-            //     if (clickCount == 11) {
-            //         allImg[i].style.filter = "blur(3.6px)"
-            //     }
-            // }
+        // let blur = clickCount*0.3
+                if (clickCount == 1) {
+                    allImg[i].style.filter = "blur(0.3px)"
+                }
+                if (clickCount == 2) {
+                    allImg[i].style.filter = "blur(0.6px)" 
+                }
+                if (clickCount == 3) {
+                    allImg[i].style.filter = "blur(1px)"
+                }
+                if (clickCount == 4) {
+                    allImg[i].style.filter = "blur(1.3px)"
+                }
+                if (clickCount == 5) {
+                    allImg[i].style.filter = "blur(1.6px)"
+                }
+                if (clickCount == 6) {
+                    allImg[i].style.filter = "blur(2px)"
+                }
+                if (clickCount == 7) {
+                    allImg[i].style.filter = "blur(2.3px)"
+                }
+                if (clickCount == 8) {
+                    allImg[i].style.filter = "blur(2.6px)"
+                }
+                if (clickCount == 9) {
+                    allImg[i].style.filter = "blur(3px)"
+                }
+                if (clickCount == 10) {
+                    allImg[i].style.filter = "blur(3.3px)"
+                }
+                if (clickCount == 11) {
+                    allImg[i].style.filter = "blur(3.6px)"
+                }
+            }
             
            
 //funciton that takes the current image and current div as arguments
