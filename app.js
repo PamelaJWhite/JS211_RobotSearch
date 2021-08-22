@@ -82,6 +82,8 @@ let clickToRemove = function(currentImg, currentDiv){
     if (updateEnd == true){
         //call the function that clears the board
         clearBoard()
+       
+        // document.getElementById("end").style.opacity = 0%
         //call the function that resets the board
         getDrinks()
         } 
@@ -128,7 +130,6 @@ let showRobot = function(currentImg){
             currentDiv.appendChild(endMessage)
             endMessage.style.opacity = "100%"
             updateEnd = true
-            // updateEnd = true
             console.log(updateEnd)
             return true
         })     
@@ -136,43 +137,16 @@ let showRobot = function(currentImg){
 let clickToBlur = function(currentDiv){
     //grab all images
     let allImg = document.querySelectorAll(".drinkImg")
+    //variable to hold incremental blur amount based on clicks
+    let blurAmount = clickCount*0.3
+    //add blurAmount to string to indicate blur correctly
+    //store in variable blurString
+    let blurString = `blur(${blurAmount}px)`
     //for each image
     for (let i = 0; i< allImg.length; i++){
-        // let blur = clickCount*0.3
-                if (clickCount == 1) {
-                    allImg[i].style.filter = "blur(0.3px)"
-                    }
-                if (clickCount == 2) {
-                    allImg[i].style.filter = "blur(0.6px)" 
-                }
-                if (clickCount == 3) {
-                    allImg[i].style.filter = "blur(1px)"
-                }
-                if (clickCount == 4) {
-                    allImg[i].style.filter = "blur(1.3px)"
-                }
-                if (clickCount == 5) {
-                    allImg[i].style.filter = "blur(1.6px)"
-                }
-                if (clickCount == 6) {
-                    allImg[i].style.filter = "blur(2px)"
-                }
-                if (clickCount == 7) {
-                    allImg[i].style.filter = "blur(2.3px)"
-                }
-                if (clickCount == 8) {
-                    allImg[i].style.filter = "blur(2.6px)"
-                }
-                if (clickCount == 9) {
-                    allImg[i].style.filter = "blur(3px)"
-                }
-                if (clickCount == 10) {
-                    allImg[i].style.filter = "blur(3.3px)"
-                }
-                if (clickCount == 11) {
-                    allImg[i].style.filter = "blur(3.6px)"
-                }
-            }
+        //style each image with incremental blurAmount using blurString
+        allImg[i].style.filter = blurString
+        }
             
            
 
@@ -222,7 +196,7 @@ let clearBoard = function(){
         board.innerHTML = "" 
         clickCount = 0 ;
         random = null;
-        updateEnd = true;
+        updateEnd = false;
         return true
 }
 getDrinks()
