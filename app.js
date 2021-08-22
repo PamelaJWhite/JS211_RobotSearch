@@ -180,7 +180,6 @@ let clearBoard = function(){
         clickCount = 0 ;
         random = null;
         updateEnd = false;
-        return true
 }
 getDrinks()
 
