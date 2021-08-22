@@ -48,7 +48,7 @@ let displayOneDrink = function(drinkImage) {
         //function removes current image
         //and triggers other changes based on click count
         clickToRemove(currentImg, currentDiv)
-        // function increasingl blurs the images given clicks
+        // function increasingly blurs the images given clicks
         clickToBlur(currentImg)
     })
 }
@@ -61,9 +61,15 @@ let clickToRemove = function(currentImg, currentDiv){
     //create and update a random number upon the first click
     if (clickCount == 0) {
         //after the first click, but before it is counted (later in this function)
-        //a random number between 1 and 12 is created
-        //this random number will be used to trigger the robot to display
-        random = getRandomInt(1, 12)
+        //a random number between 1 and 11 is created
+        //this random number will be used to trigger the robot to display 
+        //sometime before the last drink
+        random = getRandomInt(1, 11)
+        }
+    //Because previously clicked images were given the class "noDisplay", 
+    //if you click on an empty space, nothing happens
+    if (currentImg.className == "noDisplay") {
+        return false
         }
     //when the number of clicks equals that random number...
     if (random == clickCount){
@@ -72,18 +78,11 @@ let clickToRemove = function(currentImg, currentDiv){
         //call the function that displays the robot
         showRobot()
         }
-    //Because previously clicked images were given the class "noDisplay", 
-    //if you click on an empty space, nothing happens
-    if (currentImg.className == "noDisplay") {
-        return false
-        }
     //update end is changed from false to true after the robot is displayed
     //so the click after the robot is displayed will trigger update end
     if (updateEnd == true){
         //call the function that clears the board
-        clearBoard()
-       
-        // document.getElementById("end").style.opacity = 0%
+        clearBoard() 
         //call the function that resets the board
         getDrinks()
         } 
@@ -95,17 +94,21 @@ let clickToRemove = function(currentImg, currentDiv){
         clickCount = clickCount + 1
         }   
     }
-    //funciton that takes the current image and current div as arguments
+//funciton that takes the current image and current div as arguments
 let prepareRobot = function(currentImg, currentDiv) {
     console.log(`they match`)
-                ///set the current image id to robotId so that ---
+                ///set the current image id to robotId so that this currentImg can be manipulated
+                //it is not differentiated from the other images
                 currentImg.setAttribute("id", "robotId")
-                //set the current div id to found so that ---
+                //set the current div id to found so that so that this currentDiv can be manipulated
+                //it is not differentiated from the other divs
                 currentDiv.setAttribute("id", "found")
-                //style the current image, which now ha robotId, with a blur of zero, so the other images will blur but this one won't
+                //style the current image, which now ha robotId, with a blur of zero
+                //so the other images will blur but this one (which will be the robot) won't blur
                 document.getElementById("robotId").style.filter = "blur(0px)"
 }
-let showRobot = function(currentImg){
+//function that displays the robot
+let showRobot = function(){
     console.log(`showRobot() called`)
     //fetch robot
     fetch("https://robohash.org/"+ random)
@@ -114,23 +117,27 @@ let showRobot = function(currentImg){
         }).then(function(binaryData){
             //make a temporary url that references this binary data
             const imageObjectURL = URL.createObjectURL(binaryData)
-            console.log(`imageObjectURL: ${imageObjectURL}`)
-
-            //save current image as a variable
+            //save current image tag as a variable
             let robotImgTag = document.getElementById("robotId");
-            console.log(`Is this robotImgTag null? ${robotImgTag}`)
-            //update current image's (robot id),  src to this url
+            //update current image's (robot id) src to this url
             robotImgTag.src = imageObjectURL
-            //using id, set the image style to 100% opacity to show
+            //because any clicked image was set to 0% opacity to make it disappear
+            //set this image style to 100% opacity to show robot
             robotImgTag.style.opacity = "100%"
-            
-            //
-            endMessage = document.getElementById("end") 
+            //grab the paragraph that has the end message 
+            //hold that value in endMessage variable
+            let endMessage = document.getElementById("end") 
+            //grab the div that was just id'd as "found" (in the prepareRobot function)
+            //and hold that value in currentDiv variable
             let currentDiv = document.getElementById("found")
+            //add the end message to the current div
             currentDiv.appendChild(endMessage)
+            //show the end message by changing its opacity to 100%
             endMessage.style.opacity = "100%"
+            //change updateEnd to true, so the third if statement in clickToRemove
+            //will have true condition
+            //and call clearBoard and displayRobots 
             updateEnd = true
-            console.log(updateEnd)
             return true
         })     
 }
@@ -147,116 +154,35 @@ let clickToBlur = function(currentDiv){
         //style each image with incremental blurAmount using blurString
         allImg[i].style.filter = blurString
         }
-            
-           
-
-
-
-// let searchForRobot = function() {
-//     if (document.getElementById("robotId") == true){
-//     showRobot()
-//     console.log(`robotId found`)
-//     return false
-// }
-// else {
-//     console.log(`searching`)
-//     searchForRobot()
-// }
-// }
-
-
-
-        
-
-//         //change style using JS
-//         //change it incrementally with each click
-//         //if clicks === something, then style changes to blurrier
-        
-    // })
 }
-
-
-
-let displayEndMessage = function(){
-    //get p element and save
-    let endMessage = document.getElementById("end")
-    //show end mssage using class
-    endMessage.setAttribute("class", "display")
-}
-
+//function that clears all the images and divs that were added during getDrink
+//so there is space for new drinks/ a new board
 let clearBoard = function(){
     console.log(`clear board called`)
-    //put the end message "back" so it doesn't get deleted when we clear the inner HTML of the board
+    //grab the end message paragraph
     endMessage = document.getElementById("end")
+    //put it back in the body so it doesn't get cleared
+    //when the board div is cleared
     document.body.appendChild(endMessage)
     //and reset the message's classes, so it's not showing
     endMessage.classList.remove("class", "display")
-    endMessage.classList.toggle("noDisplay")
+    //set the opacity of the paragraph element back to 0%
+        //so when the board is reset in getDrinks
+        //the paragraph won't show
+    document.getElementById("end").style.opacity = "0%"
+    //grab the original div that holds all the divs with images
+    //hold it in the board variable
     let board = document.getElementById("drinkContainer")
+    //remove all the elements from the board (all the images and their containing divs)
         board.innerHTML = "" 
+    //reset the clickCount to 0, random variable to null and updateEnd to false
+    // so it can be played again
         clickCount = 0 ;
         random = null;
         updateEnd = false;
         return true
 }
 getDrinks()
-
-//this is just extra code, likely delete. it was this way from previous project from demonstration
-// let processJson = function(json) {
-//         let drink = json.drinks[0].strDrinkThumb
-//         console.log(drink)
-//         displayDrink(drink)
-// //         // assignID()
-// display drinks using array
-
-//old display drink with extra loop, waiting for array to be filled
-// let displayDrink = function(){
-//         console.log(` access drinkTray in displayDrink: ${drinkTray.length}`)
-//         console.log(`the first element of drinkTray array: ${drinkTray[0]}`)
-//         clickCount = 0 ;
-//         //grab the original div, id drinkContainter
-       
-//         console.log(`what does the original drink container div look like? ${drinkDisplay}`)
-       
-//         //need to loop over the drink array and display each 
-//         for (i=0; i< drinkTray.length; i++){
-        
-          
-            
-//         }
-//         //do these need to go here? or in the previous func?? i think here bc they need those variables
-
-//         clickToRemove()
-//         clickToDoMore()
-//     }
-     
-//display drinks
-// let displayDrink = function(drink){
-//         clickCount = 0 ;
-//         //create img element
-//         for (let i= 0; i<12; i++){
-//         console.log(`Making this drink: ${drink}`)
-//         let drinkDisplay = document.querySelector("#drinkContainer")
-//         let currentDiv = document.createElement("div")
-//         currentDiv.classList.add("imageContainers")
-//         drinkDisplay.appendChild(currentDiv)
-//         let currentImg = document.createElement("img")
-//         currentImg.src = drink
-//         currentImg.className = "drinkImg"
-//         currentDiv.appendChild(currentImg)
-//         clickToRemove(currentImg, currentDiv)
-//         clickToDoMore(currentImg, currentDiv)
-//          }
-//     }
-
-
-
-
-
-
-
-
-
 
 
 
