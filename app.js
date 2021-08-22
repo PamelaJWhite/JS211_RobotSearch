@@ -93,6 +93,46 @@ let clickToRemove = function(currentImg, currentDiv){
         clickCount = clickCount + 1
         }   
     }
+    //funciton that takes the current image and current div as arguments
+let prepareRobot = function(currentImg, currentDiv) {
+    console.log(`they match`)
+                ///set the current image id to robotId so that ---
+                currentImg.setAttribute("id", "robotId")
+                //set the current div id to found so that ---
+                currentDiv.setAttribute("id", "found")
+                //style the current image, which now ha robotId, with a blur of zero, so the other images will blur but this one won't
+                document.getElementById("robotId").style.filter = "blur(0px)"
+}
+let showRobot = function(currentImg){
+    console.log(`showRobot() called`)
+    //fetch robot
+    fetch("https://robohash.org/"+ random)
+        .then(function(response){
+            return response.blob();
+        }).then(function(binaryData){
+            //make a temporary url that references this binary data
+            const imageObjectURL = URL.createObjectURL(binaryData)
+            console.log(`imageObjectURL: ${imageObjectURL}`)
+
+            //save current image as a variable
+            let robotImgTag = document.getElementById("robotId");
+            console.log(`Is this robotImgTag null? ${robotImgTag}`)
+            //update current image's (robot id),  src to this url
+            robotImgTag.src = imageObjectURL
+            //using id, set the image style to 100% opacity to show
+            robotImgTag.style.opacity = "100%"
+            
+            //
+            endMessage = document.getElementById("end") 
+            let currentDiv = document.getElementById("found")
+            currentDiv.appendChild(endMessage)
+            endMessage.style.opacity = "100%"
+            updateEnd = true
+            // updateEnd = true
+            console.log(updateEnd)
+            return true
+        })     
+}
 let clickToBlur = function(currentDiv){
     //grab all images
     let allImg = document.querySelectorAll(".drinkImg")
@@ -101,7 +141,7 @@ let clickToBlur = function(currentDiv){
         // let blur = clickCount*0.3
                 if (clickCount == 1) {
                     allImg[i].style.filter = "blur(0.3px)"
-                }
+                    }
                 if (clickCount == 2) {
                     allImg[i].style.filter = "blur(0.6px)" 
                 }
@@ -135,47 +175,9 @@ let clickToBlur = function(currentDiv){
             }
             
            
-//funciton that takes the current image and current div as arguments
-let prepareRobot = function(currentImg, currentDiv) {
-    console.log(`they match`)
-                ///set the current image id to robotId so that ---
-                currentImg.setAttribute("id", "robotId")
-                //set the current div id to found so that ---
-                currentDiv.setAttribute("id", "found")
-                //style the current image, which now ha robotId, with a blur of zero, so the other images will blur but this one won't
-                document.getElementById("robotId").style.filter = "blur(0px)"
-}
 
-let showRobot = function(currentImg){
-    console.log(`showRobot() called`)
-    //fetch robot
-    fetch("https://robohash.org/"+ random)
-        .then(function(response){
-            return response.blob();
-        }).then(function(binaryData){
-            //make a temporary url that references this binary data
-            const imageObjectURL = URL.createObjectURL(binaryData)
-            console.log(`imageObjectURL: ${imageObjectURL}`)
 
-            //save current image as a variable
-            let robotImgTag = document.getElementById("robotId");
-            console.log(`Is this robotImgTag null? ${robotImgTag}`)
-            //update current image's (robot id),  src to this url
-            robotImgTag.src = imageObjectURL
-            //using id, set the image style to 100% opacity to show
-            robotImgTag.style.opacity = "100%"
-            
-            //
-            endMessage = document.getElementById("end") 
-            let currentDiv = document.getElementById("found")
-            currentDiv.appendChild(endMessage)
-            endMessage.style.opacity = "100%"
-            updateEnd = true
-            // updateEnd = true
-            console.log(updateEnd)
-            return true
-        })     
-}
+
 // let searchForRobot = function() {
 //     if (document.getElementById("robotId") == true){
 //     showRobot()
